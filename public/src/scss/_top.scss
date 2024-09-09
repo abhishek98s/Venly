@@ -1,0 +1,86 @@
+.sc-wrapper {
+    padding-block: 50px;
+
+    .sc-title {
+        margin-bottom: 20px;
+    }
+}
+
+main {
+    .headline-wrapper {
+        .left-wrapper {
+            max-width: 424px;
+            width: 100%;
+
+            h1 {
+                max-width: 359px;
+                width: 100%;
+                margin-bottom: 8px;
+            }
+        }
+
+        .right-wrapper {
+            max-width: 524px;
+            width: 100%;
+
+            .row {
+                row-gap: 24px;
+
+                .col-wrapper {
+                    padding-inline: 12px;
+                }
+            }
+        }
+    }
+}
+
+.sc-popular-place,
+.sc-birthday {
+
+    .birthday-place-wrapper .image-wrapper img {
+        aspect-ratio: 1.9;
+    }
+
+    .popular-place-wrapper .image-wrapper img {
+        aspect-ratio: 2.1;
+    }
+
+    .birthday-place-wrapper,
+    .popular-place-wrapper {
+
+        .image-wrapper {
+            margin-bottom: 12px;
+        }
+
+    }
+}
+
+@media screen and (max-width: 922px) {
+    .sc-wrapper {
+        padding-block: 40px;
+
+        .sc-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+    }
+
+    main .headline-wrapper {
+
+        .left-wrapper,
+        .right-wrapper {
+            max-width: unset;
+        }
+    }
+
+    .sc-birthday .birthday-place-wrapper,
+    .sc-popular-place .popular-place-wrapper {
+        .title {
+            font-size: 16px;
+        }
+
+        .location {
+            font-size: 14px;
+        }
+    }
+}

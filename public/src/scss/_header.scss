@@ -1,0 +1,56 @@
+nav {
+  height: 80px;
+
+  .nav_items_wrapper {
+    max-width: 472px;
+    width: 100%;
+    z-index: 200;
+
+    &.active {
+      position: absolute;
+      margin-top: 80px;
+      display: block !important;
+      left: 0;
+      top: 0;
+      right: 0;
+      max-width: unset;
+      background: $primary-50;
+      padding: 12px;
+      border: 1px solid $primary-500;
+      animation: top_down .4s ease;
+
+      .nav-wrapper {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+
+    @keyframes top_down {
+      from {
+        margin-top: 90px;
+        opacity: 0;
+      }
+
+      to {
+        margin-top: 80px;
+        opacity: 1;
+      }
+    }
+
+
+    .nav-item {
+      min-width: 100px;
+      width: 100%;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px;
+      transition: .4s;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: $primary-400;
+      }
+    }
+  }
+}

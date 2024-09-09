@@ -1,0 +1,68 @@
+$neutral-0: #ffffff;
+$neutral-20: #F8F8F8;
+$neutral-30-50: #47474780;
+$neutral-100: #E5E6E8;
+$neutral-300: #909090;
+$neutral-400: #F0F0F0;
+$neutral-700: #222222;
+$neutral-800: #000000;
+$orange-100: #ECDAD3;
+$orange-120: #DECBC5;
+$orange-150: #B0A8A7;
+$orange-800: #180B09;
+
+$primary-800: #383913;
+$primary-700: #836349;
+$primary-600: #F9D38F;
+$primary-500: #FCECBD;
+$primary-400: #F2E3CA;
+$primary-300: #E5E5B2;
+$primary-50: #FEFFE5;
+$primary-10: #FEFFEE;
+
+$error: hsl(0deg, 80, 60);
+
+
+/*FONTS*/
+$size: 16px;
+
+$fontEn: 'Poppins', 'Roboto', sans-serif !important;
+
+$colors-list: (
+    "neutral-0": $neutral-0,
+    "neutral-20": $neutral-20,
+    "neutral-30-50": $neutral-30-50,
+    "neutral-100": $neutral-100,
+    "neutral-300": $neutral-300,
+    "neutral-400": $neutral-400,
+    "neutral-700": $neutral-700,
+    "neutral-800": $neutral-800,
+
+    "orange-100": $orange-100,
+    "orange-120": $orange-120,
+    "orange-150": $orange-150,
+    "orange-800": $orange-800,
+
+    "primary-10": $primary-10,
+    "primary-50": $primary-50,
+    "primary-300": $primary-300,
+    "primary-400": $primary-400,
+    "primary-500": $primary-500,
+    "primary-600": $primary-600,
+    "primary-700": $primary-700,
+    "primary-800": $primary-800
+);
+
+@each $name, $color in $colors-list {
+    .color-#{$name} {
+        color: $color;
+    }
+
+    .bg-#{$name} {
+        background-color: $color;
+    }
+
+    .border-#{$name} {
+        border: 1px solid $color;
+    }
+}
