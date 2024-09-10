@@ -51,7 +51,7 @@
         <div class="popular-place-wrapper">
             <div class="row">
                 <div class="col-6">
-                    <a href="detail.php">
+                    <a href="detail.php" class="d-block">
                         <figure class="image-wrapper">
                             <img class="crounded-4" src="./images/popular-1.png" alt="popular-1">
                         </figure>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="col-6">
-                    <a href="detail.php">
+                    <a href="detail.php" class="d-block">
                         <figure class="image-wrapper">
                             <img class="crounded-4" src="./images/popular-2.png" alt="popular-1">
                         </figure>
@@ -81,7 +81,7 @@
         <div class="birthday-place-wrapper">
             <div class="row row-gap-4">
                 <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php">
+                    <a href="detail.php" class="d-block">
                         <figure class="image-wrapper">
                             <img class="crounded-4" src="./images/image-4.png" alt="popular-1">
                         </figure>
@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php">
+                    <a href="detail.php" class="d-block">
                         <figure class="image-wrapper">
                             <img class="crounded-4" src="./images/image-5.png" alt="popular-1">
                         </figure>
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php">
+                    <a href="detail.php" class="d-block">
                         <figure class="image-wrapper">
                             <img class="crounded-4" src="./images/image-1.png" alt="popular-1">
                         </figure>
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php">
+                    <a href="detail.php" class="d-block">
                         <figure class="image-wrapper">
                             <img class="crounded-4" src="./images/image-3.png" alt="popular-1">
                         </figure>

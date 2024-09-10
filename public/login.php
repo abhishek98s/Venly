@@ -36,7 +36,7 @@
                     class="text-decoration-underline color-primary-800">Register</a></p>
         </div>
     </div>
-    <script src="dist/js/custom.js"></script>
+    <!-- <script src="dist/js/custom.js"></script> -->
 </body>
 
 </html>

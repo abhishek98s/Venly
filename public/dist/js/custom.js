@@ -44,16 +44,23 @@
 // }
 
 // Get the icon-menu element
-const iconMenu = document.querySelector('.icon-menu');
 
 // Get the destination element
-const destination = document.querySelector('.nav_items_wrapper');
 const modelDestination = document.querySelector('.booking-wrapper');
 
+
+const iconMenu = document.querySelector('.icon-menu');
+const destination = document.querySelector('.nav_items_wrapper');
+
 iconMenu.addEventListener('click', () => {
-  destination.classList.toggle('active');
+    destination.classList.toggle('active');
+});
+
+$('.logout-btn').on('click', function () {
+    $.post('backend/auth/logout.php').done(() => location.reload());
 });
 
 function toggleModal() {
   modelDestination.classList.toggle('active');
 }
+

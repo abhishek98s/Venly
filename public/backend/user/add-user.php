@@ -58,12 +58,12 @@ try {
 
     $_SESSION['error'] = '';
     echo "User created successfully!";
-    header('Location: ../login.php');
+    header('Location: ../../login.php');
 } catch (mysqli_sql_exception $e) {
     $_SESSION['error'] = "Error creating user: " . $e->getMessage();
 } catch (Exception $e) {
     $_SESSION['error'] = "An error occurred: " . $e->getMessage();
-    header('Location: ../register.php');
+    header('Location: ../../register.php');
 }
 exit;
 ?>

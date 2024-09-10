@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (!session_id()) {
+  session_start();
+}
 // Configuration
 $db_host = 'localhost';
 $db_username = 'root';

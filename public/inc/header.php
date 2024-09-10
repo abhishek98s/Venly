@@ -24,11 +24,19 @@
                         <a href="index.php" class="nav-item color-primary-800">Home</a>
                         <a href="list.php" class="nav-item color-primary-800">Venue List</a>
                         <?php
-                        session_start();
+                        if (!session_id()) {
+                            session_start();
+                        }
 
                         if (!isset($_SESSION['isAuthenticated'])) {
                             echo '<a href="login.php" class="nav-item color-primary-800">Login</a>';
                             echo '<a href="register.php" class="nav-item fw-bold color-primary-800 bg-primary-600">Register</a>';
+                        }
+                        ?>
+
+                        <?php
+                        if (isset($_SESSION['isAuthenticated'])) {
+                            echo '<div class="logout-btn nav-item color-primary-800">Logout</div>';
                         }
                         ?>
                     </div>

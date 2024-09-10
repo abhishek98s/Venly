@@ -29,10 +29,14 @@ try {
     // Check if user exists and password is correct
     if ($user_data && password_verify($password, $user_data['password'])) {
         // Login successful, start session and redirect to protected page
-        session_start();
         $_SESSION['username'] = $username;
         $_SESSION['isAuthenticated'] = true;
-        header('Location: ../index.php');
+
+        if ($user_data['role'] === 'admin') {
+            header('Location: ../user-list.php');
+        } else {
+            header('Location: ../index.php');
+        }
         $stmt->close();
         exit;
     } else {
