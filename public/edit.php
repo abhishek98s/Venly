@@ -1,44 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venly | Venue Booking System</title>
-    <link rel="stylesheet" href="dist/css/vendor.css">
-    <link rel="stylesheet" href="dist/css/themes.css">
-</head>
-
-<body>
-    <div class="d-flex w-100">
-
-        <aside class="sidebar-wrapper">
-            <header class="p-2 d-flex justify-content-between align-items-center">
-                <figure>
-                    <img src="images/logo.svg" alt="logo">
-                </figure>
-
-                <a href="#">
-                    <figure>
-                        <img src="images/icons/icon-menu.svg" alt="logo">
-                    </figure>
-                </a>
-            </header>
-
-            <div class="pt-4 w-100">
-                <ul class="w-100 ps-2">
-                    <li class="w-100 px-2">
-                        <a href="venue-list" class="d-block py-3 color-primary-700 text-16">Venue</a>
-                    </li>
-                    <li class="w-100 active px-2">
-                        <a href="user-list" class="d-block py-3 color-primary-700 text-16">User list</a>
-                    </li>
-                    <li class="w-100 px-2">
-                        <a href="booking-list" class="d-block py-3 color-primary-700 text-16">Booking list</a>
-                    </li>
-                </ul>
-            </div>
-        </aside>
+<?php include 'inc/admin-header.php' ?>
 
         <?php
         include("backend/db.php");
@@ -139,8 +99,7 @@
                         unset($_SESSION['edit_error']);
                     }
                 ?>
-                <button type="submit" class="primary-btn d-inline-flex justify-content-center align-items-center">Add
-                    Venue</button>
+                <button type="submit" class="primary-btn d-inline-flex justify-content-center align-items-center">Update</button>
             </form>
         </div>
     </div>

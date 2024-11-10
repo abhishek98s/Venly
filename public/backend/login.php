@@ -29,6 +29,8 @@ try {
     // Check if user exists and password is correct
     if ($user_data && password_verify($password, $user_data['password'])) {
         // Login successful, start session and redirect to protected page
+        $_SESSION['id'] = $user_data['id'];
+        $_SESSION['email'] = $user_data['email'];
         $_SESSION['username'] = $username;
         $_SESSION['isAuthenticated'] = true;
 

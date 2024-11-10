@@ -2,6 +2,7 @@
 
 <?php
 include("backend/db.php");
+
 // Get the ID from the URL
 $id = $_GET['id'];
 
@@ -14,6 +15,19 @@ if ($result->num_rows > 0) {
     // Fetch the venue details
     $row = $result->fetch_assoc();
 }
+
+$booking_sql = "SELECT * FROM bookings WHERE venue_id = ?";
+$booking_result = $conn->prepare($booking_sql);
+$booking_result->bind_param("i", $id);
+$booking_result->execute();
+$booking_result = $booking_result->get_result();
+
+// Check if the query was successful
+if ($booking_result->num_rows > 0) {
+    // Fetch the venue details
+    $booking_row = $booking_result->fetch_assoc();
+}
+
 ?>
 <section class="sc-venue-detail">
     <div class="booking-wrapper position-fixed start-0 end-0 top-0 bottom-0">
@@ -47,18 +61,32 @@ if ($result->num_rows > 0) {
                 <span class="text-16 color-primary-700"><?php echo $row['no_of_person']; ?></span>
             </div>
 
-            <div class="message-wrapper">
-                <div class="text-14  color-primary-800 mb-2">Message</div>
-                <textarea class="mesage-input border-primary-300 w-100 rounded-12 bg-transparent"
-                    type="text"></textarea>
+            <div class="row">
+                <div class="col-6">Total price</div>
+                <div class="col-6 total-price fw-bold mb-2" id="total_price"></div>
             </div>
+
+            <form action="backend/booking/add-booking.php" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['id'] ?>">
+                <input type="hidden" name="venue_id" value="<?php echo $_GET['id'] ?>">
+
+                <input type="date" id="booking_date" required name="booking_date" min="<?php echo date('Y-m-d'); ?>">
+
+                <div class="message-wrapper">
+                    <div class="text-14  color-primary-800 mb-2">Message</div>
+                    <textarea name="booking_message" required
+                        class="mesage-input border-primary-300 w-100 rounded-12 bg-transparent" type="text"></textarea>
+                </div>
+                <button type="submit" id="booking-model-btn"
+                    class="w-100 py-2 fw-bold color-primary-800 bg-primary-600 mt-3 border-0 ">Book Now</button>
+            </form>
         </div>
     </div>
     <div class="banner-wrapper d-flex justify-content-center align-items-center position-relative">
         <div class="overlay h-100 position-absolute start-0 end-0 top-0 bottom-0 z-2"></div>
 
         <figure class="h-100 position-absolute start-0 end-0 top-0 bottom-0 z-1">
-            <img src="images/banner.png" alt="banner">
+            <img src="<?php echo $row['img_path']; ?>" alt="banner">
         </figure>
 
         <h1 class="text-56 fw-bold position-relative color-primary-10  z-3"><?php echo $row['name']; ?></h1>
@@ -96,7 +124,12 @@ if ($result->num_rows > 0) {
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="text-16 color-primary-700"><?php echo $row['service_price']; ?>/day</div>
+                                    <div class="text-16 color-primary-700">
+                                        <span id="service_price">
+                                            <?php echo $row['service_price']; ?>
+                                        </span>
+                                        /day
+                                    </div>
                                 </div>
                             </div>
 
@@ -111,7 +144,12 @@ if ($result->num_rows > 0) {
                                     </div>
                                 </div>
                                 <div class="col">
-                                    <div class="text-16 color-primary-700"><?php echo $row['food_price']; ?>/person</div>
+                                    <div class="text-16 color-primary-700">
+                                        <span id="food_price">
+                                            <?php echo $row['food_price']; ?>
+                                        </span>
+                                        /person
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -137,11 +175,23 @@ if ($result->num_rows > 0) {
                         <span class="text-16 color-primary-700"><?php echo $row['no_of_person']; ?></span>
                     </div>
 
+                    
                     <?php
+                    if (isset($_SESSION['isAuthenticated']) && !isset($booking_row['venue_id'])) {
+                        echo '<input placeholder="no of person" type="number" class="w-100" id="no_of_person" required
+                            name="name">
+                        <button onclick="toggleModal()" id="booking-model-btn"
+                            class="primary-btn max-w-unset fw-bold color-primary-800 bg-primary-600 mt-3 border-0 ">Book Now</button>';
+                    }
+                    if (isset($_SESSION['isAuthenticated']) && isset($booking_row['venue_id']) && (isset($booking_row['user_id']) == $_SESSION['id'])) {
+                        echo '<button onclick="toggleModal()" disabled id="booking-model-btn"
+                        class="primary-btn max-w-unset bg-transparent fw-bold color-primary-800 w-100 bg-primary-600 mt-3 border-0 ">Booked</button>';
 
-                    if (isset($_SESSION['isAuthenticated'])) {
-                        echo '<button onclick="toggleModal()" id="booking-model-btn"
-                            class="primary-btn fw-bold color-primary-800 bg-primary-600 mt-3 border-0 ">Book Now</button>';
+                        if ($booking_row['user_id'] === $_SESSION['id']) {
+
+                            echo '<button
+                            data-id="' . $booking_row['id'] . '" class="delete-btn d-block primary-btn bg-transparent border-error max-w-unset fw-bold color-primary-800 color-error mt-3">Cancel Order</button>';
+                        }
                     }
                     ?>
                 </div>
@@ -149,9 +199,47 @@ if ($result->num_rows > 0) {
         </div>
     </div>
 </section>
-<iframe
-    src="<?php echo $row['map_link']; ?>"
-    class="w-100" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-    referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe src="<?php echo $row['map_link']; ?>" class="w-100" width="600" height="450" style="border:0;"
+    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<script>
 
+    // disable the previous data from today
+    const currentDate = new Date();
+    const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+    const minDate = tomorrow.toISOString().split('T')[0];
+
+    document.getElementById('booking_date').min = minDate;
+
+
+    // Get all delete buttons
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    // Add event listener to each button for cancel
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Get the venue ID from the button's data-id attribute
+            const venueId = button.getAttribute('data-id');
+            console.log(venueId)
+            // Send DELETE request to delete the venue
+            fetch(`backend/booking/delete-booking.php?id=${venueId}`, {
+                method: 'DELETE'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Venue deleted successfully, update the UI
+                        console.log('Venue deleted successfully');
+                        // You can also reload the page or update the UI here
+                    } else {
+                        // Error deleting venue, display error message
+                        console.log('Error deleting venue');
+                    }
+                    location.reload()
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    });
+</script>
 <?php include 'inc/footer.php' ?>

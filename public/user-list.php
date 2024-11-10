@@ -10,7 +10,10 @@
     <div class="row row-gap-3">
         <?php
         include("backend/db.php");
-        $sql = "SELECT id, username FROM users";
+        $sql = "SELECT id, username FROM users 
+        EXCEPT 
+        SELECT id, username FROM users WHERE role = 'admin'";
+
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {

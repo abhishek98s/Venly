@@ -26,12 +26,12 @@
                 <figure>
                     <img src="images/logo.svg" alt="logo">
                 </figure>
-
+                <!-- 
                 <a href="#">
                     <figure>
                         <img src="images/icons/icon-menu.svg" alt="logo">
                     </figure>
-                </a>
+                </a> -->
             </header>
 
             <div class="pt-4 w-100">
@@ -46,7 +46,9 @@
                         <a href="booking-list" class="d-block py-3 color-primary-700 text-16">Booking list</a>
                     </li>
                     <li class="w-100 px-2">
-                        <button href="javascript:void()" id="logout-btn" class="border-0 bg-transparent w-100 text-start d-block py-3 color-primary-700 text-16">Logout</>
+                        <button href="javascript:void()" id="logout-btn"
+                            class="border-0 bg-transparent w-100 text-start d-block py-3 color-primary-700 text-16">Logout
+                            </>
                     </li>
                 </ul>
             </div>

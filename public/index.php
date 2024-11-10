@@ -1,4 +1,4 @@
-<?php include 'inc/header.php'?>
+<?php include 'inc/header.php' ?>
 <div class="container">
     <main class="sc-wrapper">
         <div
@@ -46,86 +46,42 @@
         </div>
     </main>
 
-    <section class="sc-popular-place sc-wrapper">
-        <div class="sc-title fw-bold color-primary-800 text-24">Some popular places</div>
-        <div class="popular-place-wrapper">
-            <div class="row">
-                <div class="col-6">
-                    <a href="detail.php" class="d-block">
-                        <figure class="image-wrapper">
-                            <img class="crounded-4" src="./images/popular-1.png" alt="popular-1">
-                        </figure>
-
-                        <div class="title fw-bold text-18 color-primary-800">Diansly Banquet</div>
-                        <div class="location text-16 color-primary-700">jwagal, lalitpur</div>
-                    </a>
-                </div>
-
-                <div class="col-6">
-                    <a href="detail.php" class="d-block">
-                        <figure class="image-wrapper">
-                            <img class="crounded-4" src="./images/popular-2.png" alt="popular-1">
-                        </figure>
-
-                        <div class="title fw-bold text-18 color-primary-800">Diansly Banquet</div>
-                        <div class="location text-16 color-primary-700">jwagal, lalitpur</div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="sc-birthday sc-wrapper">
-        <div class="sc-title fw-bold color-primary-800 text-24">Venues for Brithday</div>
+        <div class="sc-title fw-bold color-primary-800 text-24">Venues for your next Occassion</div>
 
         <div class="birthday-place-wrapper">
             <div class="row row-gap-4">
-                <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php" class="d-block">
-                        <figure class="image-wrapper">
-                            <img class="crounded-4" src="./images/image-4.png" alt="popular-1">
-                        </figure>
+                <?php
+                include("backend/db.php");
+                $sql = "SELECT id, name, location, img_path FROM venue limit 4";
+                $result = $conn->query($sql);
 
-                        <div class="title fw-bold text-18 color-primary-800">Diansly Banquet</div>
-                        <div class="location text-16 color-primary-700">jwagal, lalitpur</div>
-                    </a>
-                </div>
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        ?>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <a href="detail.php?id=<?php echo $row['id']; ?>" class="d-block">
 
-                <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php" class="d-block">
-                        <figure class="image-wrapper">
-                            <img class="crounded-4" src="./images/image-5.png" alt="popular-1">
-                        </figure>
+                                <figure class="image-wrapper mb-2">
+                                    <img class="crounded-4"
+                                        src="<?php echo isset($row['img_path']) && !empty($row['img_path']) ? $row['img_path'] : 'images/image-1.png'; ?>"
+                                        alt="<?php echo isset($row['img_path']) && !empty($row['img_path']) ? $row['img_path'] : '/images/image-1.png'; ?>">
+                                </figure>
 
-                        <div class="title fw-bold text-18 color-primary-800">Diansly Banquet</div>
-                        <div class="location text-16 color-primary-700">jwagal, lalitpur</div>
-                    </a>
-                </div>
+                                <div class="title fw-bold text-18 color-primary-800"><?php echo $row['name']; ?></div>
+                                <div class="location text-16 color-primary-700"><?php echo $row['location']; ?></div>
+                            </a>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo "0 results";
+                }
+                $conn->close();
+                ?>
 
-                <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php" class="d-block">
-                        <figure class="image-wrapper">
-                            <img class="crounded-4" src="./images/image-1.png" alt="popular-1">
-                        </figure>
-
-                        <div class="title fw-bold text-18 color-primary-800">Diansly Banquet</div>
-                        <div class="location text-16 color-primary-700">jwagal, lalitpur</div>
-                    </a>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-3">
-                    <a href="detail.php" class="d-block">
-                        <figure class="image-wrapper">
-                            <img class="crounded-4" src="./images/image-3.png" alt="popular-1">
-                        </figure>
-
-                        <div class="title fw-bold text-18 color-primary-800">Diansly Banquet</div>
-                        <div class="location text-16 color-primary-700">jwagal, lalitpur</div>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
-
 </div>
-<?php include 'inc/footer.php'?>
+<?php include 'inc/footer.php' ?>

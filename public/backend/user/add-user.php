@@ -23,6 +23,11 @@ try {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
+    // Email validation
+    if (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $email)) {
+        throw new Exception('Invalid email address');
+    }
+
     // Phone validation
     if (!preg_match('/^98[0-9]{8}$/', $phone)) {
         throw new Exception('Phone number should start with 98 and be 10 digits long');
@@ -49,7 +54,7 @@ try {
     // Insert data into database
     $sql = "INSERT INTO users (username, password, email, phone) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssi", $username, $password_hash, $email, $phone);
+    $stmt->bind_param("ssss", $username, $password_hash, $email, $phone);
     $stmt->execute();
 
     // Close connection
@@ -60,9 +65,9 @@ try {
     echo "User created successfully!";
     header('Location: ../../login.php');
 } catch (mysqli_sql_exception $e) {
-    $_SESSION['error'] = "Error creating user: " . $e->getMessage();
+    $_SESSION['error'] = $e->getMessage();
 } catch (Exception $e) {
-    $_SESSION['error'] = "An error occurred: " . $e->getMessage();
+    $_SESSION['error'] = $e->getMessage();
     header('Location: ../../register.php');
 }
 exit;

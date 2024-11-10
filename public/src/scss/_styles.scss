@@ -36,12 +36,22 @@ button {
     }
 }
 
+
+input[type="date"]{
+    height: 40px;
+    border-radius: 8px;
+    padding: 8px;
+    width: 100%;
+}
+
 input,
 textarea {
     border: 1px solid $primary-300;
     outline: 1px solid transparent;
     color: $primary-700;
     font-size: 14px;
+    min-height: 40px;
+    padding-inline: 8px;
 
     &:hover,
     &:focus {
@@ -50,7 +60,7 @@ textarea {
     }
 
     &::placeholder {
-        color: $primary-300;
+        color: $primary-700;
     }
 }
 

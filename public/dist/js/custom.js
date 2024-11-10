@@ -53,14 +53,22 @@ const iconMenu = document.querySelector('.icon-menu');
 const destination = document.querySelector('.nav_items_wrapper');
 
 iconMenu.addEventListener('click', () => {
-    destination.classList.toggle('active');
+  destination.classList.toggle('active');
 });
 
 $('.logout-btn').on('click', function () {
-    $.post('backend/auth/logout.php').done(() => location.reload());
+  $.post('backend/auth/logout.php').done(() => location.reload());
 });
 
 function toggleModal() {
   modelDestination.classList.toggle('active');
+
+  const foodPrice = document.querySelector('#food_price').innerHTML;
+  const servicePrice = document.querySelector('#service_price').innerHTML;
+  const noOfPerson = document.querySelector('#no_of_person').value || 0;
+
+  const totalPrice = parseInt(servicePrice) + parseInt(noOfPerson) * parseInt(foodPrice);
+  console.log(parseInt(foodPrice), parseInt(servicePrice), parseInt(noOfPerson),)
+  document.querySelector('#total_price').innerHTML = 'Rs ' + totalPrice;
 }
 

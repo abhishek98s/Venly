@@ -36,7 +36,12 @@
 
                         <?php
                         if (isset($_SESSION['isAuthenticated'])) {
-                            echo '<div class="logout-btn nav-item color-primary-800">Logout</div>';
+                            echo '<button class="logout-btn bg-transparent border-0 nav-item color-primary-800">Logout</button>';
+                        }
+                        ?>
+                        <?php
+                        if (isset($_SESSION['username'], $_SESSION['id'], $_SESSION['email'])) {
+                            echo '<div class="user-info d-inline-flex align-items-center color-primary-700">' . $_SESSION['username']. ':' . '<br>' . '<div class="text-12">' . $_SESSION['email'] . '</div>' . '</div>';
                         }
                         ?>
                     </div>
