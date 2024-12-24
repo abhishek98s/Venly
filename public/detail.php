@@ -3,6 +3,12 @@
 <?php
 include("backend/db.php");
 
+$sqll = "DELETE FROM bookings 
+WHERE STR_TO_DATE(booking_date, '%Y-%m-%d %H:%i:%s') < NOW() + INTERVAL 0 DAY 
+LIMIT 1;";
+$result = $conn->query($sqll);
+
+
 // Get the ID from the URL
 $id = $_GET['id'];
 
@@ -187,7 +193,7 @@ if ($booking_result->num_rows > 0) {
                         echo '<button onclick="toggleModal()" disabled id="booking-model-btn"
                         class="primary-btn max-w-unset bg-transparent fw-bold color-primary-800 w-100 bg-primary-600 mt-3 border-0 ">Booked</button>';
 
-                        if ($booking_row['user_id'] === $_SESSION['id']) {
+                        if ($booking_row['user_id'] === $_SESSION['id'] && $booking_row['venue_id' ] == $id) {
 
                             echo '<button
                             data-id="' . $booking_row['id'] . '" class="delete-btn d-block primary-btn bg-transparent border-error max-w-unset fw-bold color-primary-800 color-error mt-3">Cancel Order</button>';

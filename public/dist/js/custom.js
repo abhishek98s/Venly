@@ -1,53 +1,4 @@
-// $(document).ready(function () {
-//   // banner background image src
-//   $(".isBGImg").each(function () {
-//     var imgURL = $(this).find("img").attr("src");
-//     $(this).css("background-image", "url(" + imgURL + ")");
-//   });
-// });
-
-// $(function () {
-//   initScrollToTop();
-// });
-
-// function initScrollToTop() {
-//   //Check to see if the window is top if not then display button
-//   $(window).scroll(function () {
-//     var scrollTop = $(window).scrollTop(),
-//       docHeight = $(document).height(),
-//       winHeight = $(window).height(),
-//       scrollPercent = scrollTop / (docHeight - winHeight),
-//       scrollPercentRounded = Math.round(scrollPercent * 100);
-//     if (scrollPercentRounded > 50) {
-//       $(".topTop").css({
-//         opacity: 1,
-//         transform: "translateY(-50%)",
-//       });
-//     } else {
-//       $(".topTop").css({
-//         opacity: 0,
-//         transform: "translateY(50%)",
-//       });
-//     }
-//   });
-
-//   // Click event to scroll to top
-//   $(".topTop").click(function () {
-//     $("html, body").animate(
-//       {
-//         scrollTop: 0,
-//       },
-//       1000
-//     );
-//     return false;
-//   });
-// }
-
-// Get the icon-menu element
-
-// Get the destination element
 const modelDestination = document.querySelector('.booking-wrapper');
-
 
 const iconMenu = document.querySelector('.icon-menu');
 const destination = document.querySelector('.nav_items_wrapper');
@@ -67,8 +18,29 @@ function toggleModal() {
   const servicePrice = document.querySelector('#service_price').innerHTML;
   const noOfPerson = document.querySelector('#no_of_person').value || 0;
 
-  const totalPrice = parseInt(servicePrice) + parseInt(noOfPerson) * parseInt(foodPrice);
-  console.log(parseInt(foodPrice), parseInt(servicePrice), parseInt(noOfPerson),)
+  const totalPrice =
+    parseInt(servicePrice) + parseInt(noOfPerson) * parseInt(foodPrice);
+  console.log(
+    parseInt(foodPrice),
+    parseInt(servicePrice),
+    parseInt(noOfPerson)
+  );
   document.querySelector('#total_price').innerHTML = 'Rs ' + totalPrice;
 }
 
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
+    const response = fetch(`backend/booking/delete_old.php`, {
+      method: 'DELETE',
+    })
+      .then(() => console.log('ok'))
+      .catch(() => console.log('not ok'));
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + error.message);
+    }
+    const data = await response.text(); // Assuming the PHP script returns a text response
+  } catch (error) {
+    console.log(error)
+  }
+});

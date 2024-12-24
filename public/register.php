@@ -16,16 +16,16 @@
 
             <form action="backend/user/add-user.php" method="post">
                 <label class="text-14 color-primary-700" for="username">Username:</label>
-                <input class="bg-transparent border-primary-600 mb-1" type="text" id="username" name="username"
+                <input class="bg-transparent border-primary-600 mb-1" type="text" minlength="3" id="username" name="username"
                     required>
                 <div class="username-error error-text mb-3"></div>
 
                 <label class="text-14 color-primary-700" for="email">Email:</label>
-                <input class="bg-transparent border-primary-600 mb-1" type="text" id="email" name="email" required>
+                <input class="bg-transparent border-primary-600 mb-1" type="email" id="email" name="email" required>
                 <div class="email-error error-text mb-3"></div>
 
                 <label class="text-14 color-primary-700" for="phone">Phone:</label>
-                <input class="bg-transparent border-primary-600 mb-1" type="number" id="phone" name="phone" required>
+                <input class="bg-transparent border-primary-600 mb-1" maxlength="10" pattern="\d{10}"  type="text" id="phone" name="phone" required>
                 <div class="phone-error error-text mb-3"></div>
 
                 <label class="text-14 color-primary-700" for="password">Password:</label>
