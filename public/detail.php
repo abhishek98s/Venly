@@ -178,7 +178,7 @@ if ($booking_result->num_rows > 0) {
                         <figure class="icon-info">
                             <img src="images/icons/icon-people.svg" alt="icon-location">
                         </figure>
-                        <span class="text-16 color-primary-700"><?php echo $row['no_of_person']; ?></span>
+                        <span id="capacity" class="text-16 color-primary-700"><?php echo $row['no_of_person']; ?></span>
                     </div>
 
                     

@@ -12,11 +12,21 @@ $('.logout-btn').on('click', function () {
 });
 
 function toggleModal() {
-  modelDestination.classList.toggle('active');
-
+  
   const foodPrice = document.querySelector('#food_price').innerHTML;
   const servicePrice = document.querySelector('#service_price').innerHTML;
   const noOfPerson = document.querySelector('#no_of_person').value || 0;
+  const capacity = document.querySelector('#capacity').innerHTML || 0;
+
+  console.log(capacity);
+  console.log(noOfPerson);
+
+  if(noOfPerson > capacity){
+    alert('not capacity');
+    return;
+  }
+
+  modelDestination.classList.toggle('active');
 
   const totalPrice =
     parseInt(servicePrice) + parseInt(noOfPerson) * parseInt(foodPrice);
