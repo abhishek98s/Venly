@@ -1,4 +1,5 @@
 <?php include 'inc/header.php' ?>
+
 <div class="container">
     <main class="sc-wrapper">
         <div
