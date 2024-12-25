@@ -27,17 +27,19 @@
                     while ($user_row = $user_result->fetch_assoc()) {
 
 
-                        $venue_sql = "SELECT name FROM venue WHERE id = ?";
+                        $venue_sql = "SELECT * FROM venue WHERE id = ?";
                         $stmt = $conn->prepare($venue_sql);
                         $stmt->bind_param("i", $row['venue_id']);
                         $stmt->execute();
                         $venue_result = $stmt->get_result();
                         $venue_row = $venue_result->fetch_assoc()
-                        ?>
+                            ?>
                         <div class="col-6">
                             <div class="user-box border-primary-500 position-relative p-3">
-                                <div
-                                    class=" pt-4 mb-2 d-flex flex-column align-items-center align-items-center position-relative">
+                                <div class="position-absolute top-0 start-0 mt-2 ms-2"><?php echo
+                                    date('Y-m-d', strtotime($row['booking_date']));
+                                ?></div>
+                                <div class=" pt-4 mb-2 d-flex flex-column align-items-center align-items-center position-relative">
                                     <figure class="mb-2">
                                         <img src="images/icons/icon-user.svg" alt="icon-user">
                                     </figure>

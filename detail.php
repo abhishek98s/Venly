@@ -196,7 +196,11 @@ if ($booking_result->num_rows > 0) {
                         if ($booking_row['user_id'] === $_SESSION['id'] && $booking_row['venue_id' ] == $id) {
 
                             echo '<button
-                            data-id="' . $booking_row['id'] . '" class="delete-btn d-block primary-btn bg-transparent border-error max-w-unset fw-bold color-primary-800 color-error mt-3">Cancel Order</button>';
+                            data-id="' . $booking_row['id'] . '" class="delete-btn d-block primary-btn bg-transparent border-error max-w-unset fw-bold color-primary-800 color-error mt-3">Cancel Order</button>
+                            
+                            <button
+                            data-id="' . $booking_row['id'] . '" class="delete-btn d-block primary-btn bg-transparent border-error max-w-unset fw-bold color-primary-800 color-error mt-3">Edit</button>
+                            ';
                         }
                     }
                     ?>
