@@ -1,6 +1,6 @@
 <?php
 include '../db.php';
-
+require_once('./sendmail.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo "Invalid request method. Only POST requests are allowed.";
@@ -27,6 +27,8 @@ try {
     $stmt->bind_param("ii", $venueId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
+    $booked_venue = $result->fetch_assoc();
+
     if ($result->num_rows > 0) {
         throw new Exception('Already Booked');
     }
@@ -37,6 +39,33 @@ try {
     $stmt->bind_param("iiss", $userId, $venueId, $booking_message, $booking_date);
     $stmt->execute();
 
+
+
+    $email_sql = "SELECT u.username, u.email, v.name AS venue_name, b.booking_date
+FROM users u
+INNER JOIN bookings b ON b.user_id = u.id
+INNER JOIN venue v ON b.venue_id = v.id
+WHERE u.id = $userId";
+
+    // Execute the query
+    $email_res = mysqli_query($conn, $email_sql); // Use mysqli_query to execute the SQL
+
+    if ($email_res && mysqli_num_rows($email_res) > 0) {
+        $row = mysqli_fetch_assoc($email_res); // Fetch the result as an associative array
+
+        $person_name = $row['username'];
+        $person_email = $row['email'];
+        $venue_name = $row['venue_name']; // Use the alias defined in the SQL query
+        $booking_date = $row['booking_date']; // Fetch the booking date
+        $body = "Dear $person_name, your $venue_name venue is booked on $booking_date.";
+
+        // Send the email
+        sendEmail($person_email, 'Venue Booked', $body);
+    } else {
+        echo "No booking found for user ID: $userId.";
+    }
+
+    
     // Close connection
     $stmt->close();
     $conn->close();
