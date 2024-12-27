@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 --
 
 INSERT INTO `bookings` (`id`, `user_id`, `venue_id`, `booking_message`, `booking_date`) VALUES
-(22, 15, 13, 'I wnat this', '2024-12-26 00:00:00'),
-(23, 17, 4, 'I need to book this venue', '2024-12-26 00:00:00');
+(22, 15, 13, 'I wnat this', NOW()),
+(23, 17, 4, 'I need to book this venue', NOW());
 
 -- --------------------------------------------------------
 

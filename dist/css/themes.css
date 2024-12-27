@@ -531,6 +531,8 @@ main .headline-wrapper .right-wrapper {
 
 .main {
   padding-top: 40px; }
+  .main .week-ago {
+    width: 64px; }
   .main .venue-box,
   .main .user-box {
     border-radius: 4px;
