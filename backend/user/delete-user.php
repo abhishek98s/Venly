@@ -4,7 +4,6 @@ include '../db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $id = $_GET['id'];
 
-    // Delete the venue from the database
     $sql = "DELETE FROM users WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id);
@@ -16,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         $response = ['success' => false, 'message' => 'Error deleting venue'];
     }
 
-    // Close connection
     $stmt->close();
     $conn->close();
 

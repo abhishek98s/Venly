@@ -37,7 +37,6 @@ try {
     $service_price = $_POST['service'];
     $food_price = $_POST['food'];
 
-    // Update the venue details in the database
     $sql = "UPDATE venue SET name = ?, location = ?, email = ?, no_of_person = ?, about = ?, facility = ?, map_link = ?, service_price = ?, food_price = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $params = array($name, $location, $email, $no_of_person, $about, $facility, $map_link, $service_price, $food_price, $id);
@@ -50,7 +49,6 @@ try {
         $_SESSION['edit_error'] = "No rows updated";
     }
     
-    // Close connection
     $stmt->close();
     $conn->close();
 

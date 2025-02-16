@@ -46,13 +46,11 @@ try {
     $imageType = $image['type'];
     $imageName = $image['name'];
 
-    // Validate image type
     $allowedTypes = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
     if (!in_array($imageType, $allowedTypes)) {
         throw new Exception("Invalid image type");
     }
 
-    // Upload the image to a directory
     $uploadDir = '../images/';
     $imagePath = $uploadDir . $imageName;
     $imagename = 'images/' . $imageName;
@@ -65,7 +63,6 @@ try {
         throw new Exception("Error uploading image");
     }
 
-    // Insert data into database
     $sql = "INSERT INTO venue (name, location, email, no_of_person, about, facility, map_link, service_price, food_price, img_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssisssiis", $name, $location, $email, $no_of_person, $about, $facility, $map_link, $service_price, $food_price, $imagename);
@@ -77,10 +74,8 @@ try {
     }
     
     $_SESSION['insert_venue_error'] = '$e->getMessage()';
-    // Check if the query was successful
     $result = $stmt->get_result();
 
-    // Close connection
     $stmt->close();
     $conn->close();
 

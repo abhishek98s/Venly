@@ -48,27 +48,20 @@
 </div>
 
 <script>
-    // Get all delete buttons
     const deleteButtons = document.querySelectorAll('.delete-btn');
 
-    // Add event listener to each button
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Get the venue ID from the button's data-id attribute
             const venueId = button.getAttribute('data-id');
 
-            // Send DELETE request to delete the venue
             fetch(`backend/user/delete-user.php?id=${venueId}`, {
                 method: 'DELETE'
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Venue deleted successfully, update the UI
                         console.log('User deleted successfully');
-                        // You can also reload the page or update the UI here
                     } else {
-                        // Error deleting venue, display error message
                         console.log('Error deleting user');
                     }
                     location.reload()

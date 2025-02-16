@@ -25,7 +25,6 @@ try {
     $email = $_POST['email'];
     $phone = $_POST['phone'];
 
-    // Update the user details in the database
     $sql = "UPDATE users SET username = ?, email = ?, phone = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $params = array($username, $email, $phone, $id);
@@ -34,7 +33,6 @@ try {
         throw new Exception("Error updating user: " . $conn->error);
     }
 
-    // Close connection
     $stmt->close();
     $conn->close();
 

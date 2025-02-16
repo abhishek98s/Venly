@@ -13,9 +13,7 @@
         $sql = "SELECT * FROM bookings";
         $result = $conn->query($sql);
 
-        // Check if the query was successful
         if ($result->num_rows > 0) {
-            // Loop through the results and populate the HTML template
             while ($row = $result->fetch_assoc()) {
                 $user_sql = "SELECT username FROM users WHERE id = ?";
                 $stmt = $conn->prepare($user_sql);
@@ -63,33 +61,25 @@
         } else {
             echo "0 results";
         }
-        // Close the database connection
         $conn->close();
         ?>
     </div>
 </div>
 <script>
-    // Get all delete buttons
     const deleteButtons = document.querySelectorAll('.delete-btn');
 
-    // Add event listener to each button
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Get the venue ID from the button's data-id attribute
             const venueId = button.getAttribute('data-id');
 
-            // Send DELETE request to delete the venue
             fetch(`backend/booking/delete-booking.php?id=${venueId}`, {
                 method: 'DELETE'
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Venue deleted successfully, update the UI
                         console.log('Venue deleted successfully');
-                        // You can also reload the page or update the UI here
                     } else {
-                        // Error deleting venue, display error message
                         console.log('Error deleting venue');
                     }
                     location.reload()

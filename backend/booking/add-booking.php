@@ -8,7 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    // Check if required parameters are set
     if (!isset($_POST['booking_message'], $_POST['user_id'], $_POST['venue_id'], $_POST['booking_date'])) {
         throw new Exception("Missing required parameters");
     }
@@ -21,7 +20,6 @@ try {
     echo $_POST['venue_id'];
     echo $_POST['user_id'];
 
-    // Check if user with same email is already registered
     $sql = "SELECT * FROM bookings WHERE venue_id = ? AND user_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $venueId, $userId);
@@ -33,7 +31,6 @@ try {
         throw new Exception('Already Booked');
     }
 
-    // Insert data into database
     $sql = "INSERT INTO bookings (user_id, venue_id, booking_message, booking_date) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iiss", $userId, $venueId, $booking_message, $booking_date);
@@ -47,26 +44,23 @@ INNER JOIN bookings b ON b.user_id = u.id
 INNER JOIN venue v ON b.venue_id = v.id
 WHERE u.id = $userId";
 
-    // Execute the query
-    $email_res = mysqli_query($conn, $email_sql); // Use mysqli_query to execute the SQL
+    $email_res = mysqli_query($conn, $email_sql);
 
     if ($email_res && mysqli_num_rows($email_res) > 0) {
-        $row = mysqli_fetch_assoc($email_res); // Fetch the result as an associative array
+        $row = mysqli_fetch_assoc($email_res);
 
         $person_name = $row['username'];
         $person_email = $row['email'];
-        $venue_name = $row['venue_name']; // Use the alias defined in the SQL query
-        $booking_date = $row['booking_date']; // Fetch the booking date
+        $venue_name = $row['venue_name'];
+        $booking_date = $row['booking_date'];
         $body = "Dear $person_name, your $venue_name venue is booked on $booking_date.";
 
-        // Send the email
         sendEmail($person_email, 'Venue Booked', $body);
     } else {
         echo "No booking found for user ID: $userId.";
     }
 
     
-    // Close connection
     $stmt->close();
     $conn->close();
 

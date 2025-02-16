@@ -2,16 +2,12 @@
 
 <?php
 include("backend/db.php");
-// Get the ID from the URL
 $id = $_GET['id'];
 
-// Query the venue table to retrieve the venue details
 $sql = "SELECT * FROM users WHERE id = '$id'";
 $result = $conn->query($sql);
 
-// Check if the query was successful
 if ($result->num_rows > 0) {
-    // Fetch the venue details
     $row = $result->fetch_assoc();
 }
 ?>

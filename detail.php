@@ -9,16 +9,12 @@ LIMIT 1;";
 $result = $conn->query($sqll);
 
 
-// Get the ID from the URL
 $id = $_GET['id'];
 
-// Query the venue table to retrieve the venue details
 $sql = "SELECT * FROM venue WHERE id = '$id'";
 $result = $conn->query($sql);
 
-// Check if the query was successful
 if ($result->num_rows > 0) {
-    // Fetch the venue details
     $row = $result->fetch_assoc();
 }
 
@@ -28,9 +24,7 @@ $booking_result->bind_param("i", $id);
 $booking_result->execute();
 $booking_result = $booking_result->get_result();
 
-// Check if the query was successful
 if ($booking_result->num_rows > 0) {
-    // Fetch the venue details
     $booking_row = $booking_result->fetch_assoc();
 }
 
@@ -213,7 +207,6 @@ if ($booking_result->num_rows > 0) {
     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 <script>
 
-    // disable the previous data from today
     const currentDate = new Date();
     const tomorrow = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
     const minDate = tomorrow.toISOString().split('T')[0];
@@ -221,27 +214,20 @@ if ($booking_result->num_rows > 0) {
     document.getElementById('booking_date').min = minDate;
 
 
-    // Get all delete buttons
     const deleteButtons = document.querySelectorAll('.delete-btn');
 
-    // Add event listener to each button for cancel
     deleteButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Get the venue ID from the button's data-id attribute
             const venueId = button.getAttribute('data-id');
             console.log(venueId)
-            // Send DELETE request to delete the venue
             fetch(`backend/booking/delete-booking.php?id=${venueId}`, {
                 method: 'DELETE'
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Venue deleted successfully, update the UI
                         console.log('Venue deleted successfully');
-                        // You can also reload the page or update the UI here
                     } else {
-                        // Error deleting venue, display error message
                         console.log('Error deleting venue');
                     }
                     location.reload()
