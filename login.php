@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+session_start();
+
+if (isset($_SESSION['isAuthenticated'])) {
+    header("Location: index.php");
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,16 +32,16 @@
                 <input type="submit" class="fw-bold text-16 submit-btn bg-primary-600 color-primary-800 mb-3"
                     value="Login">
 
-                    <?php
-                    session_start();
-                    if (isset($_SESSION['login_error'])) {
-                        echo '<div class="error-text">' . $_SESSION['login_error'] . '</div>';
-                        unset($_SESSION['login_error']);
-                    }
+                <?php
+                if (isset($_SESSION['login_error'])) {
+                    echo '<div class="error-text">' . $_SESSION['login_error'] . '</div>';
+                    unset($_SESSION['login_error']);
+                }
                 ?>
             </form>
             <p class="text-14 color-primary-700">Don't have an account? <a href="register.php"
                     class="text-decoration-underline color-primary-800">Register</a></p>
+            <a href="index.php" class="text-14 text-center d-block text-decoration-underline color-primary-800">HOME</a>
         </div>
     </div>
     <!-- <script src="dist/js/custom.js"></script> -->
