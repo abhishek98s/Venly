@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <?php
 session_start();
+if (isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated'] === true) {
+    if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 
-if (isset($_SESSION['isAuthenticated'])) {
-    header("Location: index.php");
+        header('Location: ./user-list.php');
+    } else {
+
+        header('Location: ./index.php');
+    }
+    echo $_SESSION['role'];
+    exit;
 }
 ?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,7 +27,7 @@ if (isset($_SESSION['isAuthenticated'])) {
         <div class="login-form border-primary-500 p-3 bg-primary-100">
             <h2 class="text-20 fw-bold color-primary-800 mb-3">Register</h2>
 
-            <form action="backend/user/add-user.php" method="post">
+            <form autocomplete="off" action="backend/user/add-user.php" method="post">
                 <label class="text-14 color-primary-700" for="username">Username:</label>
                 <input class="bg-transparent border-primary-600 mb-1" type="text" minlength="3" id="username"
                     name="username" required>
@@ -58,6 +63,17 @@ if (isset($_SESSION['isAuthenticated'])) {
             <a href="index.php" class="text-14 text-center d-block text-decoration-underline color-primary-800">HOME</a>
         </div>
     </div>
+    <script>
+        document.getElementById('phone').addEventListener('input', function() {
+    // Remove any non-digit characters
+    this.value = this.value.replace(/\D/g, '');
+
+    // If the length exceeds 10, truncate it
+    if (this.value.length > 10) {
+        this.value = this.value.substring(0, 10);
+    }
+});
+    </script>
 </body>
 
 </html>

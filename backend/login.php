@@ -27,6 +27,7 @@ try {
     if ($user_data && password_verify($password, $user_data['password'])) {
         $_SESSION['id'] = $user_data['id'];
         $_SESSION['email'] = $user_data['email'];
+        $_SESSION['role'] = $user_data['role'];
         $_SESSION['username'] = $username;
         $_SESSION['isAuthenticated'] = true;
 

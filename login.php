@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-session_start();
-
-if (isset($_SESSION['isAuthenticated'])) {
-    header("Location: index.php");
-}
-?>
 
 <head>
     <meta charset="UTF-8">
@@ -18,6 +11,20 @@ if (isset($_SESSION['isAuthenticated'])) {
 </head>
 
 <body>
+    <?php
+    session_start();
+    if (isset($_SESSION['isAuthenticated']) && $_SESSION['isAuthenticated'] === true) {
+        if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+
+            header('Location: ./user-list.php');
+        } else {
+
+            header('Location: ./index.php');
+        }
+        echo $_SESSION['role'];
+        exit;
+    }
+    ?>
     <div class="login-box">
         <div class="login-form border-primary-500 p-3 bg-primary-100">
             <h2 class="text-20 fw-bold color-primary-800 mb-3">Login</h2>
